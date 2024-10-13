@@ -82,7 +82,7 @@ namespace Platformer {
             if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 //Check what is directly below our character's feet
-                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, 0.85f);//charater is taller
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, 0.9f);//charater is taller
                 //RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, 0.7f);
                 //we might have multiple things below the player's feet
                 for (int i = 0; i < hits.Length; i++)
