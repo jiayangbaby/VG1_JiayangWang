@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Q2.unity
     guid: 09fcbce8fe7484d7595b15298225adc2
+  - enabled: 1
+    path: Assets/Scenes/Platformer.unity
+    guid: 2ad72709682e446aba3ddc84c543fcc0
   m_configObjects: {}
