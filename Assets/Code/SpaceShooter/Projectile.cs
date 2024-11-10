@@ -47,8 +47,8 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         //TODO: Make this dynamic
-        float acceleration = 1f;
-        float maxSpeed = 2f;
+        float acceleration = GameController.instance.missileSpeed / 2f;
+        float maxSpeed = GameController.instance.missileSpeed;
 
         //Home is on Target
         ChooseNearstTarget();
@@ -80,6 +80,8 @@ public class Projectile : MonoBehaviour
                 transform.position,
                 Quaternion.identity);
             Destroy(explosion, 0.25f);
+
+            GameController.instance.EarnPoints(10);
         }
         
     }
