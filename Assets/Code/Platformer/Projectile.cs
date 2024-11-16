@@ -15,6 +15,14 @@ namespace Platformer {
         }
 
         void OnCollisionEnter2D(Collision2D other) {
+            if (other.gameObject.GetComponent<Target>())
+            {
+                SoundManager.instance.PlaySoundHit();
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                SoundManager.instance.PlaySoundMiss();
+            }
+
             Destroy(gameObject);
         }
     }

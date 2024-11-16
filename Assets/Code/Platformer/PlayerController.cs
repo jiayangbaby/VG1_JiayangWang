@@ -1,25 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 namespace Platformer {
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController instance;
+
         //Outlet
         Rigidbody2D _rigidbody2D;
         public Transform aimPivot;
         public GameObject projectilePrefab;
         SpriteRenderer sprite;
         Animator animator;
+        public TMP_Text scoreUI;
 
         //State Tracking
         public int jumpsLeft;
+        public int score;
+        public bool isPaused;
 
         //Methods
+        private void Awake()
+        {
+            instance = this;
+        }
         void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             sprite = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+
+            score = PlayerPrefs.GetInt("Score");
         }
         void FixedUpdate()
         {
@@ -38,6 +51,12 @@ namespace Platformer {
 
         void Update()
         {
+            //Update UI
+            scoreUI.text = score.ToString();
+            //Update loop will be skipped if the game is paused
+            if (isPaused) {
+                return;
+            }
             //Move Player Left
             if (Input.GetKey(KeyCode.A)){
                 _rigidbody2D.AddForce(Vector2.left * 18 * Time.deltaTime, ForceMode2D.Impulse);
@@ -48,6 +67,10 @@ namespace Platformer {
             {
                 _rigidbody2D.AddForce(Vector2.right * 18 * Time.deltaTime, ForceMode2D.Impulse);
                 sprite.flipX=false;
+            }
+            //Escape key will trigger showing the menu
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                MenuController.instance.Show();
             }
             //Aim Toward Mouse
             Vector3 mousePosition = Input.mousePosition;
@@ -96,6 +119,10 @@ namespace Platformer {
                     }
                 }
             }
+        }
+        public void ResetScore() {
+            score = 0;
+            PlayerPrefs.DeleteKey("Score");
         }
 
 
